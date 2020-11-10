@@ -1,0 +1,152 @@
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart
+                </a>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profile"> Profile </a>
+                        <a class="dropdown-item" href="/orders"> Orders </a>
+                        <a class="dropdown-item" href="/logout"> Log Out </a>
+    </div>
+    </div> 
+            </form>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>User Orders</h1>
+                <br>
+                {{# if orders }}
+                {{# each orders }}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {{# each this.items }}
+                            <li class="list-group-item">
+                                <span class="badge">{{ this.price }}</span>
+                                {{ this.item.title }} | {{ this.qty }} Units
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <strong>Total Price: {{ this.cart.totalPrice }} kn</strong></div>
+                </div>
+                 {{# each orders }}
+                    <table class="table">
+                        <thead class="bg-info text-white">
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price (kn)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            {{# each this.items }}
+                            <tr>
+                                <th scope="col"> {{ this.item.title }} </th>
+                                <th scope="col"> {{ this.qty }}</th>
+                                <th scope="col"> {{ this.price }} </th>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    {{/each}}
+                {{/each}}
+                {{ else }}
+                    <h1>No orders!</h1>
+                    
+                   <table class="table">
+                        <thead class="bg-info text-white">
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price (kn)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                        </tbody>
+                        <th scope="col">Status: u pripravi</th>
+                        <th scope="col"></th>
+                        <th scope="col">Total: 564 kn</th>
+                    </table>
+                    <table class="table">
+                        <thead class="bg-info text-white">
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price (kn)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                            <tr>
+                                <th scope="col"> Title </th>
+                                <th scope="col"> Qty</th>
+                                <th scope="col"> price </th>
+                            </tr>
+                        </tbody>
+                        <th scope="col">Status: u pripravi</th>
+                        <th scope="col"></th>
+                        <th scope="col">Total: 564 kn</th>
+                    </table>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>

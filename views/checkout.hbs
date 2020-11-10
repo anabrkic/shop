@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="/css/profile.css">
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart 
+                    <span class="badge">{{session.cart.totalQty}}</span>
+                </a>
+                {{# if login }}
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profilee"> Profile </a>
+                        <a class="dropdown-item" href="#orders"> Orders </a>
+                        <a class="dropdown-item" href="../controllers/orderController/logout"> Log Out </a>
+                    </div>
+                </div> 
+            </form>
+            {{ else }}
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> Account
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user/signin"> Log In </a>
+                    <a class="dropdown-item" href="/user/signup"> Sign Up </a>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </nav>
+</header>
+<div class="container">
+        <div class="page-content page-container" id="page-content">
+            <div class="padding">
+                <div class="row container d-flex justify-content-center">
+                    <div class="col-xl-10 col-md-10">
+                        <div class="card user-card-full">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-8">
+                                    <div class="card-block">
+                                        <br>
+                                        <h1>Checkout</h1>
+                                        <br>
+                                        <h4>Your Total: {{total}} kn</h4>
+                                        <br>
+                                        <form action="/checkout" method="post" id="checkout-form">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="firstname">First name</label>
+                                                        <input type="text" id="name" class="form-control" required name="firstname">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="surname">Surname</label>
+                                                        <input type="text" id="surname" class="form-control" required name="surname">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="name">Address</label>
+                                                        <input type="text" id="address" class="form-control" required name="address">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="name">City</label>
+                                                        <input type="text" id="city" class="form-control" required name="city">
+                                                    </div>
+                                                </div>    
+                                            <br>
+                                            <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                                                        <button type="submit" class="btn btn-outline-success">Buy</button>
+                                                    </div>
+                                            </div>
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

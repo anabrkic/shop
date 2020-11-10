@@ -1,0 +1,99 @@
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart 
+                    <span class="badge">{{session.cart.totalQty}}</span>
+                </a>
+                {{# if login }}
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profilee"> Profile </a>
+                        <a class="dropdown-item" href="#orders"> Orders </a>
+                        <a class="dropdown-item" href="/logout"><i class="fa fa-power-off" aria-hidden="true"></i> Log Out </a>
+                    </div>
+                </div> 
+            </form>
+            {{ else }}
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> Account
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user/signin"> Log In </a>
+                    <a class="dropdown-item" href="/user/signup"> Sign Up </a>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </nav>
+</header>
+
+<script src="/js/main.js"></script>
+<body>
+<br>
+    <div class="sidebar">
+        <a href="/shop/rings">Prstenje</a>
+        <a href="/shop/earrings">Naušnice</a>
+        <a href="/shop/bracelets">Narukvice</a>
+        <a href="/shop/necklaces">Lančići</a>
+    </div>
+<main>
+    <div class="container">
+        <div class="naslov"> Prstenja </div>
+        {{# each rings }}    
+        <div class="row">
+        {{# each this }}
+            <div class="col-sm-4">
+                <div class="panel">
+                    <div class="panel-heading"><img src="{{ this.image_url }}" class="img-responsive" style="width:100%" alt="Image"></div>
+                    <div class="panel-body">
+                        <h3>{{ this.title }}</h3>
+                        <h4>{{ this.description }}</h4>
+                        <h4>{{ this.color }}</h4>
+                        <div class="price">{{ this.price }} kn</div>
+                        <div class="right">
+                            <a href="/rings/add-to-cart/{{this._id}}" >
+                            <i class="fas fa-cart-plus fa-2x" style="color:#17a2b8"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="panel-footer"><br></div>
+                </div>
+            </div>
+            {{/each}} 
+        </div>
+        <br>
+        {{/each}}
+        <br><br>
+        <div class="center">
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#">1</a>
+                <a href="#" class="active">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </div>    
+    </div>
+</main>
+</body>

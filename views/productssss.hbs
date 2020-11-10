@@ -1,0 +1,88 @@
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart 
+                    <span class="badge">{{session.cart.totalQty}}</span>
+                </a>
+                {{# if login }}
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profilee"> Profile </a>
+                        <a class="dropdown-item" href="#orders"> Orders </a>
+                        <a class="dropdown-item" href="/logout"> Log Out </a>
+                    </div>
+                </div> 
+            </form>
+            {{ else }}
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> Account
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user/signin"> Log In </a>
+                    <a class="dropdown-item" href="/user/signup"> Sign Up </a>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </nav>
+</header>
+
+<script src="/js/main.js"></script>
+
+<body>
+    <main>
+        <div class="container">
+            <br>
+                <div class="row">
+                    <div class="card" style="width:500px">
+                        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT6hETQuViHkCI6tqGTS8mvx2RAzrPvkNpLTw&usqp=CAU" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h4 class="card-title">Prstenja</h4>
+                            <a href="/shop/rings" class="btn btn-info">Više</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width:500px">
+                        <img class="card-img-top" src="https://ae01.alicdn.com/kf/HTB1dgTQX2fsK1RjSszgq6yXzpXao/2020-Newest-Fashion-Earrings-For-Women-European-Design-Drop-Earrings-Gift-For-Friend.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h4 class="card-title">Naušnice</h4>
+                            <a href="/shop/earrings" class="btn btn-info">Više</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card" style="width:500px">
+                        <img class="card-img-top" src="https://i.pinimg.com/originals/f2/aa/41/f2aa413dfc3febb5128e992208dc65a3.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h4 class="card-title">Narukvice</h4>
+                            <a href="/shop/bracelets" class="btn btn-info">Više</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width:500px">
+                        <img class="card-img-top" src="https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dwdd2455ce/images/icing/hi-res/96876_1.jpg?sw=290&sh=290&sm=fit" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h4 class="card-title">Lančići</h4>
+                            <a href="/shop/necklaces" class="btn btn-info">Više</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </main>
+</body>

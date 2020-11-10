@@ -1,0 +1,121 @@
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart 
+                    <span class="badge">{{session.cart.totalQty}}</span>
+                </a>
+                {{# if login }}
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profilee"> Profile </a>
+                        <a class="dropdown-item" href="#orders"> Orders </a>
+                        <a class="dropdown-item" href="/logout"> Log Out </a>
+                    </div>
+                </div> 
+            </form>
+            {{ else }}
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> Account
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user/signin"> Log In </a>
+                    <a class="dropdown-item" href="/user/signup"> Sign Up </a>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        {{# if profile }}
+        {{# each profile }}
+        <div class="page-content page-container" id="page-content">
+            <div class="padding">
+                <div class="row container d-flex justify-content-center">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="card user-card-full"> 
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-4 bg-c-lite-green user-profile">
+                                    <div class="card-block text-center text-white">
+                                        <div class="m-b-25"> <img src="https://i.pinimg.com/736x/20/0d/57/200d57b9520f4d21c4d49b98aefddcb4.jpg" class="img-radius rounded-circle" alt="User-Profile-Image"> </div>
+                                        <h6 class="f-w-600">{{ this.firstname }} {{ this.surname }}</h6>
+                                        <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informations</h6>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 class="m-b-10 f-w-600">Name</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.firstname }} {{this.surname }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 class="m-b-10 f-w-600">Phone</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.phone }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h6 class="m-b-10 f-w-600">Address</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.address }}</h6>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6 class="m-b-10 f-w-600">City</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.city }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h6 class="m-b-10 f-w-600">Secondary Address</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.secondary_address }}</h6>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6 class="m-b-10 f-w-600">Secondary City</h6>
+                                                <h6 class="text-muted f-w-400">{{ this.secondary_city }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-b-b">
+                                        <a href="/user/editprofile" role="button" class="btn btn-info btn">Edit profile</a>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{ else }}
+        <div class="row">
+            <h1> You don't have profile! </h1>
+            <div class="botun">
+                <p><a href="/user/createprofile" role="button" class="btn btn-info btn-lg">Create profile</a></p>
+                <a href="/user/editprofile" role="button" class="btn btn-info btn">Edit profile</a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</body>

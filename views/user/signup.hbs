@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/css/profile.css">
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="page-content page-container" id="page-content">
+            <div class="padding">
+                <div class="row container d-flex justify-content-center">
+                    <div class="col-xl-10 col-md-10">
+                        <div class="card user-card-full">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-8">
+                                    <div class="card-block">
+                                        <h1>Sign Up</h1>
+                                        {{#if hasErrors}}
+                                            <div class="alert alert-danger">
+                                                {{# each messages }}
+                                                    <p>{{this}}</p>
+                                                {{/each}}
+                                            </div>    
+                                        {{/if}}
+                                        <form action="/user/signup" method="post">
+                                            <div class="form-group">
+                                                <label for="email">E-mail</label>
+                                                <input type="text" id="email" name="email" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" id="password" name="password" class="form-control">
+                                            </div>
+                                            <div class="botun">
+                                                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                                                <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+                                            </div>
+                                        </form>
+                                        
+                                        <h5> Have an account? <a href="/user/signin">Log In</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

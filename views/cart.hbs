@@ -1,0 +1,97 @@
+<header>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-md bg-info text-white">
+        <a class="text-white navbar-brand" href="/">
+            <i class="fas fa-graduation-cap"></i> Online Store
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+        aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto menu">
+                <li class="nav-item active">
+                    <a href="/products" class="nav-link">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="/cart" class="text-white nav-link">
+                    <i class="fas fa-shopping-cart">
+                    </i> Shopping Cart 
+                    <span class="badge">{{session.cart.totalQty}}</span>
+                </a>
+                {{# if login }}
+                <div class="dropdown">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> User
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/user/profilee"> Profile </a>
+                        <a class="dropdown-item" href="#orders"> Orders </a>
+                        <a class="dropdown-item" href="/logout"> Log Out </a>
+                    </div>
+                </div> 
+            </form>
+            {{ else }}
+            <div class="dropdown">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="far fa-user"></i> Account
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user/signin"> Log In </a>
+                    <a class="dropdown-item" href="/user/signup"> Sign Up </a>
+                </div>
+            </div> 
+            {{/if}}
+        </div>
+    </nav>
+</header>
+<div class="container mt-3">
+    <main role="main">
+        {{# if products }}
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price (kn)</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            {{# each products }}
+                            <tr>
+                                <th scope="col"> {{ this.item.title }} </th>
+                                <th scope="col"> {{ this.qty }} </th>
+                                <th scope="col"> {{ this.price }} </th>
+                                <th scope="col"> 
+                                    <a href="/add/{{this.item._id}}" <i class="fas fa-plus fa-lg" style="color:#17a2b8"></a>
+                                    <a href="/reduce/{{this.item._id}}" <i class="fas fa-minus fa-lg" style="color:#17a2b8"></a> 
+                                    <a href="/remove/{{this.item._id}}" <i class="far fa-trash-alt fa-lg" style="color:#17a2b8"></i> </a>
+                                </th>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                        <th scope="col">Total: {{ totalPrice }} kn</th>
+                        <th scope="col"></th>
+                    </table>
+                </div>
+                <h4>Plaćanje pozuećem!</h4>
+            </div>  
+        </div>
+        <div style="width: 350px;" align="right">
+            <a href="/checkout" class="btn btn-outline-success" role="button">Continue</a>
+        </div>
+        <hr class="featurette-divider">
+        {{ else }}
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                <br>
+                <h2>No Items in Cart!</h2>
+            </div>
+        </div>
+        {{/if}}
+    </main>
+</div>
+<script src="/js/cart.js"></script>
