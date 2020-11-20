@@ -20,10 +20,8 @@
             <form class="form-inline mt-2 mt-md-0">
                 <a href="/cart" class="text-white nav-link">
                     <i class="fas fa-shopping-cart">
-                    </i> Shopping Cart 
-                    <span class="badge">{{session.cart.totalQty}}</span>
+                    </i> Shopping Cart
                 </a>
-                {{# if login }}
                 <div class="dropdown">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i> User
                     </button>
@@ -32,9 +30,8 @@
                         <a class="dropdown-item" href="/user/orders"> Orders </a>
                         <a class="dropdown-item" href="/logout"> <i class="fa fa-power-off" aria-hidden="true"></i> Log Out </a>
                     </div>
-                </div> 
+                </div>
             </form>
-            {{ else }}
             <div class="dropdown">
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i> Account
             </button>
@@ -42,8 +39,7 @@
                     <a class="dropdown-item" href="/user/signin"> Log In </a>
                     <a class="dropdown-item" href="/user/signup"> Sign Up </a>
                 </div>
-            </div> 
-            {{/if}}
+            </div>
         </div>
     </nav>
 </header>
@@ -52,8 +48,8 @@
     <div class="carousel slide" data-ride="carousel" id="myCarousel">
         <ol class="carousel-indicators">
             <li style="z-index:102;" data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li style="z-index:102;" data-target="#myCarousel" data-slide-to="1" ></li> 
-            <li style="z-index:102;" data-target="#myCarousel" data-slide-to="2" ></li> 
+            <li style="z-index:102;" data-target="#myCarousel" data-slide-to="1" ></li>
+            <li style="z-index:102;" data-target="#myCarousel" data-slide-to="2" ></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -102,5 +98,5 @@
     <div class="text">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti ipsam ipsum unde magnam, provident quam reprehenderit maiores velit ad adipisci ducimus natus repellat optio nemo cumque! Provident facilis perferendis quos.</p>
     </div>
-    
+
 </div>

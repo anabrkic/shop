@@ -34,23 +34,31 @@
                                                 {{# each messages }}
                                                     <p>{{this}}</p>
                                                 {{/each}}
-                                            </div>    
+                                            </div>
                                         {{/if}}
-                                        <form action="/user/signup" method="post">
+                                        <form id="form">
                                             <div class="form-group">
                                                 <label for="email">E-mail</label>
                                                 <input type="text" id="email" name="email" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firstName">First name</label>
+                                                <input type="text" id="firstName" name="firstName" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName">Last name</label>
+                                                <input type="text" id="lastName" name="lastName" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
                                                 <input type="password" id="password" name="password" class="form-control">
                                             </div>
                                             <div class="botun">
-                                                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+<!--                                                <input type="hidden" name="_csrf" value="{{ csrfToken }}">-->
                                                 <button type="submit" class="btn btn-outline-primary">Sign Up</button>
                                             </div>
                                         </form>
-                                        
+
                                         <h5> Have an account? <a href="/user/signin">Log In</a></h5>
                                     </div>
                                 </div>
@@ -62,3 +70,25 @@
         </div>
     </div>
 </body>
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = form?.email?.value;
+      const password = form?.password?.value;
+      const firstName = form?.firstName?.value;
+      const lastName = form?.lastName?.value;
+
+      try {
+        const response = await fetch('/signup', {
+          method: 'POST',
+          body: JSON.stringify({ email, password, firstName, lastName }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+      } catch (err) {
+        console.error(err);
+      }
+    })
+</script>
