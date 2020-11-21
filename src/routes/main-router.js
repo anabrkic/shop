@@ -7,6 +7,12 @@ import {
   handleLogout,
 } from '../controllers/auth-controller';
 import { requireAuth } from '../middleware/auth-middleware';
+import {
+  handleAddProduct,
+  handleGetProduct,
+  handleGetProducts,
+  handleUpdateProduct,
+} from '../controllers/product-controller';
 
 const mainRouter = new Router();
 
@@ -26,5 +32,9 @@ mainRouter.get('/signup', (req, res) => {
 // authenticated routes
 mainRouter.get('/users', requireAuth, handleGetUsers);
 mainRouter.post('/logout', requireAuth, handleLogout);
+mainRouter.get('/products', requireAuth, handleGetProducts);
+mainRouter.get('/products/:id', requireAuth, handleGetProduct);
+mainRouter.post('/products/:id', requireAuth, handleUpdateProduct);
+mainRouter.post('/products', requireAuth, handleAddProduct);
 
 export default mainRouter;
