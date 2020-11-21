@@ -1,22 +1,30 @@
 import { Router } from 'express';
 
 import { handleGetUsers } from '../controllers/users-controller';
-import { handleLogin, handleSignup, handleLogout } from '../controllers/auth-controller';
+import {
+  handleLogin,
+  handleSignup,
+  handleLogout,
+} from '../controllers/auth-controller';
 import { requireAuth } from '../middleware/auth-middleware';
 
 const mainRouter = new Router();
-mainRouter.get('/users', handleGetUsers);
-mainRouter.post('/signup', handleSignup);
-mainRouter.post('/login', handleLogin);
-mainRouter.post('/logout', handleLogout);
+
+// unauthenticated routes
 mainRouter.get('/', (req, res) => {
   res.render('home');
 });
-mainRouter.get('/signup', (req, res) => {
-  res.render('user/signup');
-});
+mainRouter.post('/login', handleLogin);
 mainRouter.get('/login', (req, res) => {
   res.render('user/signin');
 });
+mainRouter.post('/signup', handleSignup);
+mainRouter.get('/signup', (req, res) => {
+  res.render('user/signup');
+});
+
+// authenticated routes
+mainRouter.get('/users', requireAuth, handleGetUsers);
+mainRouter.post('/logout', requireAuth, handleLogout);
 
 export default mainRouter;
