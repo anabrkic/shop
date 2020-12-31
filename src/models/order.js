@@ -1,11 +1,13 @@
-/*var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-var orderSchema = new Schema({
-    user: {type: Schema.Types.ObjectId, ref: 'User'},
-    cart: {type: Object, required: true},
-    status: {type: String},
-    date: { type: Date, default: Date.now }
+const { Schema, ObjectId } = mongoose;
+
+const orderSchema = new Schema({
+  buyer: { type: ObjectId, ref: 'User' },
+  orderCode: { type: String },
+  status: { type: String },
+  date: { type: Date, default: Date.now },
+  totalPrice: { type: String },
 });
 
-module.exports = mongoose.model('Order', orderSchema);*/
+export const Order = mongoose.model('Order', orderSchema);

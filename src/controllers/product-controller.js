@@ -1,3 +1,5 @@
+import querystring from 'querystring';
+
 import { Product } from '../models/product';
 
 export async function handleGetProducts(req, res) {
@@ -8,7 +10,7 @@ export async function handleGetProducts(req, res) {
     return res.send(err);
   }
 
-  return res.send(products);
+  return res.render('products', { products });
 }
 
 export async function handleGetProduct(req, res) {
@@ -31,11 +33,12 @@ export async function handleUpdateProduct(req, res) {
     imageUrl = '',
     color = '',
     description = '',
+    categoryId = '',
   } = req.body;
 
   await Product.updateOne(
     { _id: id },
-    { $set: { name, price, imageUrl, color, description } }
+    { $set: { name, price, imageUrl, color, description, categoryId } }
   );
 
   return res.send(Product.findOne({ _id: id }));
@@ -48,6 +51,7 @@ export async function handleAddProduct(req, res) {
     imageUrl = '',
     color = '',
     description = '',
+    categoryId = '',
   } = req.body;
   const product = await Product.create({
     name,
@@ -55,8 +59,20 @@ export async function handleAddProduct(req, res) {
     imageUrl,
     color,
     description,
+    categoryId,
   });
   await product.save();
 
   return res.send(product);
+}
+
+export async function handleGetCategoryProducts(req, res) {
+  const queryString = req.url.split('?')[1];
+  const queryList = querystring.parse(queryString);
+
+  const products = await Product.find().exec();
+  const categoryProducts = products.filter(
+    (product) => product.categoryId.toString() === queryList.categoryId
+  );
+  res.send(categoryProducts);
 }

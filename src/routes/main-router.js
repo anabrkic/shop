@@ -9,16 +9,26 @@ import {
 import { requireAuth } from '../middleware/auth-middleware';
 import {
   handleAddProduct,
+  handleGetCategoryProducts,
   handleGetProduct,
   handleGetProducts,
   handleUpdateProduct,
 } from '../controllers/product-controller';
+import {
+  handleAddToCart,
+  handleGetBuyersCart,
+} from '../controllers/cart-controller';
+import {
+  handleAddCategory,
+  handleGetCategories,
+} from '../controllers/category-controller';
 
 const mainRouter = new Router();
 
 // unauthenticated routes
 mainRouter.get('/', (req, res) => {
-  res.render('home');
+  res.send('HOME');
+  // res.render('home');
 });
 mainRouter.post('/login', handleLogin);
 mainRouter.get('/login', (req, res) => {
@@ -29,12 +39,19 @@ mainRouter.get('/signup', (req, res) => {
   res.render('user/signup');
 });
 
+mainRouter.post('/categories', handleAddCategory);
+mainRouter.get('/categories', handleGetCategories);
+
 // authenticated routes
-mainRouter.get('/users', requireAuth, handleGetUsers);
+mainRouter.get('/users', handleGetUsers);
 mainRouter.post('/logout', requireAuth, handleLogout);
-mainRouter.get('/products', requireAuth, handleGetProducts);
+mainRouter.get('/category-products', handleGetCategoryProducts);
+mainRouter.get('/products', handleGetProducts);
 mainRouter.get('/products/:id', requireAuth, handleGetProduct);
 mainRouter.post('/products/:id', requireAuth, handleUpdateProduct);
 mainRouter.post('/products', requireAuth, handleAddProduct);
+
+mainRouter.post('/cart', requireAuth, handleAddToCart);
+mainRouter.get('/cart', requireAuth, handleGetBuyersCart);
 
 export default mainRouter;

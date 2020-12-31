@@ -17,7 +17,7 @@
             <form class="form-inline mt-2 mt-md-0">
                 <a href="/cart" class="text-white nav-link">
                     <i class="fas fa-shopping-cart">
-                    </i> Shopping Cart 
+                    </i> Shopping Cart
                     <span class="badge">{{session.cart.totalQty}}</span>
                 </a>
                 {{# if login }}
@@ -29,7 +29,7 @@
                         <a class="dropdown-item" href="#orders"> Orders </a>
                         <a class="dropdown-item" href="/logout"> Log Out </a>
                     </div>
-                </div> 
+                </div>
             </form>
             {{ else }}
             <div class="dropdown">
@@ -39,7 +39,7 @@
                     <a class="dropdown-item" href="/user/signin"> Log In </a>
                     <a class="dropdown-item" href="/user/signup"> Sign Up </a>
                 </div>
-            </div> 
+            </div>
             {{/if}}
         </div>
     </nav>
@@ -47,125 +47,46 @@
 <script src="/js/main.js"></script>
 
 <body>
-    <br>
-    <div class="sidebar">
-        <a href="/shop/rings">Prstenje</a>
-        <a href="/shop/earrings">Naušnice</a>
-        <a href="/shop/bracelets">Narukvice</a>
-        <a href="/shop/necklaces">Lančići</a>
+    <div style="margin-top: 50px">
+        <ul>
+            {{# each products }}
+            <li>{{# each this}}{{ this.name }}{{/each}}</li>
+            {{/each}}
+        </ul>
     </div>
-    <main>
-   <div class="container">
-    {{# each products }}    
-        <div class="row">
-            {{# each this }}
-            <div class="col-sm-4">
-                <div class="panel">
-                    <div class="panel-heading"><img src="{{ this.image_url }}" class="img-responsive" style="width:100%" alt="Image"></div>
-                    <div class="panel-body">
-                        <h3>{{ this.title }}</h3>
-                        <p>{{ this.description }}</p>
-                        <div class="price">{{ this.price }} kn</div>
-                        <div class="right">
-                            <a href="/add-to-cart/{{this._id}}" >
-                            <i class="fas fa-cart-plus fa-2x" style="color:#17a2b8"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <br>
-                    </div>
-                </div>
-            </div>
-        {{/each}} 
-        </div><br>
-    {{/each}}
-    <br><br>
-    <div class="center">
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#" class="active">2</a>
-            <a href="#">3</a>
-            <a href="#">&raquo;</a>
-        </div>
-    </div>
-    <div style="text-align:center;">
-    <input type="button" id="first" onclick="firstPage()" value="first" />
-    <input type="button" id="next" onclick="nextPage()" value="next" />
-    <input type="button" id="previous" onclick="previousPage()" value="previous" />
-    <input type="button" id="last" onclick="lastPage()" value="last" />
-
-    <div id="list"></div>
-    </div>
-    </div>
-    </main>
+<!--    <br>-->
+<!--    <div class="sidebar">-->
+<!--        <a href="/shop/rings">Prstenje</a>-->
+<!--        <a href="/shop/earrings">Naušnice</a>-->
+<!--        <a href="/shop/bracelets">Narukvice</a>-->
+<!--        <a href="/shop/necklaces">Lančići</a>-->
+<!--    </div>-->
+<!--    <main>-->
+<!--   <div class="container">-->
+<!--    {{# each products }}-->
+<!--        <div class="row">-->
+<!--            {{# each this }}-->
+<!--                <div class="col-sm-4">-->
+<!--                    <div class="panel">-->
+<!--                        <div class="panel-heading"><img src="{{ this.imageUrl }}" class="img-responsive" style="width:100%" alt="Image"></div>-->
+<!--                        <div class="panel-body">-->
+<!--                            <h3>{{ this.name }}</h3>-->
+<!--                            <p>{{ this.description }}</p>-->
+<!--                            <div class="price">{{ this.price }} kn</div>-->
+<!--                            <div class="right">-->
+<!--                                <button onclick="handleAddToCart()" >-->
+<!--                                <i class="fas fa-cart-plus fa-2x" style="color:#17a2b8"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="panel-footer">-->
+<!--                            <br>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            {{/each}}-->
+<!--        </div><br>-->
+<!--    </div>-->
+<!--    {{/each}}-->
+<!--    <br><br>-->
 </body>
-<script type="text/javascript">
-    var list = new Array();
-    var pageList = new Array();
-    var currentPage = 1;
-    var numberPerPage = 10;
-    var numberOfPages = 0;
-
-function makeList() {
-    for (x = 0; x < 200; x++)
-        list.push(x);
-
-    numberOfPages = getNumberOfPages();
-}
-    
-function getNumberOfPages() {
-    return Math.ceil(list.length / numberPerPage);
-}
-
-function nextPage() {
-    currentPage += 1;
-    loadList();
-}
-
-function previousPage() {
-    currentPage -= 1;
-    loadList();
-}
-
-function firstPage() {
-    currentPage = 1;
-    loadList();
-}
-
-function lastPage() {
-    currentPage = numberOfPages;
-    loadList();
-}
-
-function loadList() {
-    var begin = ((currentPage - 1) * numberPerPage);
-    var end = begin + numberPerPage;
-
-    pageList = list.slice(begin, end);
-    drawList();
-    check();
-}
-    
-function drawList() {
-    document.getElementById("list").innerHTML = "";
-    for (r = 0; r < pageList.length; r++) {
-        document.getElementById("list").innerHTML += pageList[r] + "<br/>";
-    }
-}
-
-function check() {
-    document.getElementById("next").disabled = currentPage == numberOfPages ? true : false;
-    document.getElementById("previous").disabled = currentPage == 1 ? true : false;
-    document.getElementById("first").disabled = currentPage == 1 ? true : false;
-    document.getElementById("last").disabled = currentPage == numberOfPages ? true : false;
-}
-
-function load() {
-    makeList();
-    loadList();
-}
-    
-window.onload = load;
-</script>

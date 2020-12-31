@@ -15,6 +15,11 @@ export async function handleSignup(req, res) {
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
+  const isAnExistingUser = await User.findOne({ email });
+  if (isAnExistingUser) {
+    return res.status(500).send({ error: 'User already exists' });
+  }
+
   const user = await User.create({
     firstName,
     lastName,
@@ -25,8 +30,8 @@ export async function handleSignup(req, res) {
 
   const token = createToken(user._id);
   res.cookie('jwt', token, { maxAge: MAX_TOKEN_AGE * 1000 });
-
-  return res.send(user);
+  //
+  return res.status(200).send(user);
 }
 
 export async function handleLogin(req, res) {
@@ -38,7 +43,7 @@ export async function handleLogin(req, res) {
   res.cookie('jwt', token, { maxAge: MAX_TOKEN_AGE * 1000 });
 
   if (!user) {
-    return res.status(500).send({ error: 'Error while logging in' });
+    return res.status(404).send({ error: 'User not found' });
   }
 
   const valid = await bcrypt.compare(password, (user || []).password);

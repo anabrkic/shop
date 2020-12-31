@@ -87,6 +87,12 @@
           body: JSON.stringify({ email, password, firstName, lastName }),
           headers: { 'Content-Type': 'application/json' },
         })
+        if (response?.status !== 200) {
+          alert('Error while signing up. Please try again.');
+          return;
+        }
+        alert('Successfully signed up.');
+        location.pathname = '/';
       } catch (err) {
         console.error(err);
       }

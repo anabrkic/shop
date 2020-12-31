@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const { Schema } = mongoose;
+const { Schema, ObjectId } = mongoose;
 
 const productSchema = new Schema({
   name: { type: String, required: true },
@@ -8,6 +8,7 @@ const productSchema = new Schema({
   imageUrl: { type: String, required: true },
   color: { type: String, required: true },
   description: { type: String, required: true },
+  categoryId: { type: ObjectId, ref: 'Category' },
 });
 
 export const Product = mongoose.model('Product', productSchema);

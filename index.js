@@ -5,8 +5,13 @@ import mongoose from 'mongoose';
 import exphbs from 'express-handlebars';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import AdminBro from 'admin-bro';
+import AdminBroExpress from '@admin-bro/express';
+import AdminBroMongoose from '@admin-bro/mongoose';
 
 import mainRouter from './src/routes/main-router';
+
+AdminBro.registerAdapter(AdminBroMongoose);
 
 (async () => {
   const app = express();
@@ -33,11 +38,22 @@ import mainRouter from './src/routes/main-router';
 
   app.use('/', mainRouter);
 
+  let mongooseDb;
   try {
-    await mongoose.connect('mongodb://localhost:27017/shop');
+    mongooseDb = await mongoose.connect('mongodb://localhost:27017/shop', {
+      useNewUrlParser: true,
+    });
   } catch (err) {
     console.error(err);
   }
+
+  // const adminBro = new AdminBro({
+  //   databases: [mongooseDb],
+  //   rootPath: '/admin',
+  // });
+  //
+  // const router = AdminBroExpress.buildRouter(adminBro);
+  // app.use(adminBro.options.rootPath, router);
 
   app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
