@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema, ObjectId } = mongoose;
 
 const cartItemSchema = new Schema({
-  productId: [{ type: ObjectId, ref: 'Product' }],
+  productId: { type: ObjectId, ref: 'Product' },
   quantity: { type: Number, required: true },
 });
 

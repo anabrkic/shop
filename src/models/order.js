@@ -7,7 +7,14 @@ const orderSchema = new Schema({
   orderCode: { type: String },
   status: { type: String },
   date: { type: Date, default: Date.now },
-  totalPrice: { type: String },
+  totalCost: { type: String },
+  phoneNumber: { type: String },
+  city: { type: String },
+  postalCode: { type: String },
+  address: { type: String },
+  firstName: { type: String },
+  lastName: { type: String },
+  items: { type: Array },
 });
 
 export const Order = mongoose.model('Order', orderSchema);

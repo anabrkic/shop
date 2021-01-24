@@ -47,15 +47,15 @@ AdminBro.registerAdapter(AdminBroMongoose);
     console.error(err);
   }
 
-  // const adminBro = new AdminBro({
-  //   databases: [mongooseDb],
-  //   rootPath: '/admin',
-  // });
-  //
-  // const router = AdminBroExpress.buildRouter(adminBro);
-  // app.use(adminBro.options.rootPath, router);
+  const adminBro = new AdminBro({
+    databases: [mongooseDb],
+    rootPath: '/admin',
+  });
 
-  app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+  const router = AdminBroExpress.buildRouter(adminBro);
+  app.use(adminBro.options.rootPath, router);
+
+  app.listen(4000, () => {
+    console.log('Server is running on http://localhost:4000');
   });
 })();

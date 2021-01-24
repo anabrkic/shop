@@ -1,6 +1,8 @@
 import querystring from 'querystring';
 
+import mongoose from 'mongoose';
 import { Product } from '../models/product';
+import {User} from "../models/user";
 
 export async function handleGetProducts(req, res) {
   let products = [];
@@ -10,13 +12,15 @@ export async function handleGetProducts(req, res) {
     return res.send(err);
   }
 
-  return res.render('products', { products });
+  return res.send(products);
 }
 
 export async function handleGetProduct(req, res) {
   const { id } = req.params;
 
-  const product = Product.findOne({ _id: id });
+  const product = await Product.find({
+    _id: mongoose.Types.ObjectId(id),
+  }).exec();
 
   if (!product) {
     return res.status(404).send({ error: 'Product not found' });
@@ -31,17 +35,17 @@ export async function handleUpdateProduct(req, res) {
     name = '',
     price = '',
     imageUrl = '',
-    color = '',
+    material = '',
     description = '',
     categoryId = '',
   } = req.body;
 
   await Product.updateOne(
     { _id: id },
-    { $set: { name, price, imageUrl, color, description, categoryId } }
+    { $set: { name, price, imageUrl, material, description, categoryId } },
   );
 
-  return res.send(Product.findOne({ _id: id }));
+  return res.send(Product.findOne({ id }));
 }
 
 export async function handleAddProduct(req, res) {
@@ -49,7 +53,7 @@ export async function handleAddProduct(req, res) {
     name = '',
     price = '',
     imageUrl = '',
-    color = '',
+    material = '',
     description = '',
     categoryId = '',
   } = req.body;
@@ -57,7 +61,7 @@ export async function handleAddProduct(req, res) {
     name,
     price,
     imageUrl,
-    color,
+    material,
     description,
     categoryId,
   });
@@ -72,7 +76,39 @@ export async function handleGetCategoryProducts(req, res) {
 
   const products = await Product.find().exec();
   const categoryProducts = products.filter(
-    (product) => product.categoryId.toString() === queryList.categoryId
+    (product) => product.categoryId.toString() === queryList.categoryId,
   );
   res.send(categoryProducts);
+}
+
+export async function handleGetFilteredProducts(req, res) {
+  const queryString = req.url.split('?')[1];
+  const queryList = querystring.parse(queryString);
+  console.log('QUERYLIST', queryList);
+  const products = await Product.find().exec();
+  console.log('products', products);
+  let filteredProducts;
+  if (queryList.material === 'all') {
+    filteredProducts = products.filter(
+      (product) => product.categoryId.toString() === queryList.categoryId
+    );
+  } else {
+    filteredProducts = products.filter(
+      (product) => product.material === queryList.material
+        && product.categoryId.toString() === queryList.categoryId
+    );
+  }
+  res.send(filteredProducts);
+}
+
+export async function handleDeleteProduct(req, res) {
+  const { id } = req.params;
+
+  try {
+    await Product.remove({ _id: id });
+  } catch (err) {
+    return res.send(err);
+  }
+
+  return res.send(id);
 }

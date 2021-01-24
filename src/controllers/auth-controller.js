@@ -11,7 +11,7 @@ function createToken(id) {
 
 // TODO: check empty states and throw errors accordingly for all handlers
 export async function handleSignup(req, res) {
-  const { firstName, lastName, email, password } = req.body;
+  const { email, firstName, lastName, password } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -29,9 +29,8 @@ export async function handleSignup(req, res) {
   await user.save();
 
   const token = createToken(user._id);
-  res.cookie('jwt', token, { maxAge: MAX_TOKEN_AGE * 1000 });
-  //
-  return res.status(200).send(user);
+
+  return res.status(200).send({ user, token });
 }
 
 export async function handleLogin(req, res) {
@@ -40,7 +39,6 @@ export async function handleLogin(req, res) {
   const user = await User.findOne({ email });
 
   const token = createToken(user._id);
-  res.cookie('jwt', token, { maxAge: MAX_TOKEN_AGE * 1000 });
 
   if (!user) {
     return res.status(404).send({ error: 'User not found' });
@@ -50,10 +48,5 @@ export async function handleLogin(req, res) {
   if (!valid) {
     return res.status(500).send({ error: 'Error while logging in' });
   }
-  return res.status(200).send(user);
-}
-
-export function handleLogout(req, res) {
-  res.cookie('jwt', '', { maxAge: 1 });
-  res.redirect('/home');
+  return res.status(200).send({ user, token });
 }
