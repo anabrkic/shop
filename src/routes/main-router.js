@@ -26,13 +26,13 @@ import {
 import {
   handleAddCategory,
   handleDeleteCategory,
-  handleGetCategories,
+  handleGetCategories, handleUpdateCategory,
 } from '../controllers/category-controller';
 import {
   handleCreateOrder,
   handleDeleteOrder,
   handleGetBuyerOrders,
-  handleGetOrders,
+  handleGetOrders, handleUpdateOrder,
 } from '../controllers/order-controller';
 
 const mainRouter = new Router();
@@ -75,5 +75,6 @@ mainRouter.post('/orders', handleCreateOrder);
 mainRouter.get('/orders', handleGetOrders);
 mainRouter.delete('/orders/:id', handleDeleteOrder);
 mainRouter.get('/buyer-orders', handleGetBuyerOrders);
+mainRouter.put('/orders/:id', handleUpdateOrder);
 
 export default mainRouter;

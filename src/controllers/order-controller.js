@@ -2,7 +2,7 @@ import querystring from 'querystring';
 import { Product } from '../models/product';
 import { Order } from '../models/order';
 import { Cart } from '../models/cart';
-import {User} from "../models/user";
+import { User } from '../models/user';
 
 const uuid = require('uuid');
 
@@ -17,7 +17,7 @@ export async function handleCreateOrder(req, res) {
     phoneNumber = '',
     totalCost = '',
     buyer = '',
-    status = 'PENDING',
+    status = 0,
   } = req.body;
 
   const orderCode = uuid.v4();
@@ -63,6 +63,16 @@ export async function handleDeleteOrder(req, res) {
   } catch (err) {
     return res.send(err);
   }
+
+  return res.send(id);
+}
+
+export async function handleUpdateOrder(req, res) {
+  const { id } = req.params;
+
+  const { status } = req.body;
+
+  await Order.updateOne({ _id: id }, { $set: { status: status.toString() } });
 
   return res.send(id);
 }

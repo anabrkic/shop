@@ -1,4 +1,5 @@
 import { Category } from '../models/category';
+import {User} from "../models/user";
 
 export async function handleAddCategory(req, res) {
   const { name } = req.body;
