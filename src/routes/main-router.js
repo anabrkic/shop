@@ -1,8 +1,10 @@
 import { Router } from 'express';
 
 import {
-  handleDeleteUser, handleGetUser,
-  handleGetUsers, handleUpdateUser,
+  handleDeleteUser,
+  handleGetUser,
+  handleGetUsers,
+  handleUpdateUser,
 } from '../controllers/users-controller';
 import { handleLogin, handleSignup } from '../controllers/auth-controller';
 import { requireAuth } from '../middleware/auth-middleware';
@@ -23,14 +25,15 @@ import {
 } from '../controllers/cart-controller';
 import {
   handleAddCategory,
+  handleDeleteCategory,
   handleGetCategories,
 } from '../controllers/category-controller';
 import {
   handleCreateOrder,
   handleDeleteOrder,
   handleGetBuyerOrders,
-  handleGetOrders
-} from "../controllers/order-controller";
+  handleGetOrders,
+} from '../controllers/order-controller';
 
 const mainRouter = new Router();
 
@@ -49,6 +52,7 @@ mainRouter.get('/signup', (req, res) => {
 
 mainRouter.post('/categories', handleAddCategory);
 mainRouter.get('/categories', handleGetCategories);
+mainRouter.delete('/categories/:id', handleDeleteCategory);
 
 // authenticated routes
 mainRouter.get('/users', requireAuth, handleGetUsers);

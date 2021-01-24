@@ -15,3 +15,15 @@ export async function handleGetCategories(req, res) {
 
   return res.send(categories);
 }
+
+export async function handleDeleteCategory(req, res) {
+  const { id } = req.params;
+
+  try {
+    await Category.remove({ _id: id });
+  } catch (err) {
+    return res.send(err);
+  }
+
+  return res.send(id);
+}
