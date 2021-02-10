@@ -12,5 +12,8 @@ const cartSchema = new Schema({
   cartItems: [cartItemSchema],
 });
 
+// jedina schema koja je malo drugacija jer cartItems referenciraju drugu schemu.
+// Tada su cartItems array [] cartItemScheme, a unutar cartItemScheme takoder
+// imamo referencu na Product
 export const Cart = mongoose.model('Cart', cartSchema);
 export const CartItem = mongoose.model('CartItem', cartItemSchema);

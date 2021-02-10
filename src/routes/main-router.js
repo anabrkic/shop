@@ -26,7 +26,7 @@ import {
 import {
   handleAddCategory,
   handleDeleteCategory,
-  handleGetCategories, handleUpdateCategory,
+  handleGetCategories,
 } from '../controllers/category-controller';
 import {
   handleCreateOrder,
@@ -35,6 +35,9 @@ import {
   handleGetOrders, handleUpdateOrder,
 } from '../controllers/order-controller';
 
+// mainRouter je objekt na kojeg kacimo sve nase rute
+// postoje get, post, put, delete kako je definirano
+// u REST API
 const mainRouter = new Router();
 
 // unauthenticated routes
@@ -55,7 +58,10 @@ mainRouter.get('/categories', handleGetCategories);
 mainRouter.delete('/categories/:id', handleDeleteCategory);
 
 // authenticated routes
+// requireAuth rute zasticene middlewareom
 mainRouter.get('/users', requireAuth, handleGetUsers);
+// sa :id opisujemo rute kojima je potreban id kojeg onda dohvacamo
+// preko params
 mainRouter.delete('/users/:id', requireAuth, handleDeleteUser);
 mainRouter.put('/users/:id', handleUpdateUser);
 mainRouter.get('/users/:id', handleGetUser);
