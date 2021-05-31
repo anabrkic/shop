@@ -59,7 +59,7 @@ mainRouter.delete('/categories/:id', handleDeleteCategory);
 
 // authenticated routes
 // requireAuth rute zasticene middlewareom
-mainRouter.get('/users', requireAuth, handleGetUsers);
+mainRouter.get('/users', handleGetUsers);
 // sa :id opisujemo rute kojima je potreban id kojeg onda dohvacamo
 // preko params
 mainRouter.delete('/users/:id', requireAuth, handleDeleteUser);
