@@ -45,7 +45,7 @@ export async function handleUpdateProduct(req, res) {
     { $set: { name, price, imageUrl, material, description, categoryId } },
   );
 
-  return res.send(Product.findOne({ id }));
+  return res.send('OK');
 }
 
 export async function handleAddProduct(req, res) {

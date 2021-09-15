@@ -72,6 +72,7 @@ mainRouter.get('/products/:id', handleGetProduct);
 mainRouter.delete('/products/:id', handleDeleteProduct);
 mainRouter.post('/products/:id', handleUpdateProduct);
 mainRouter.post('/products', handleAddProduct);
+mainRouter.put('/products/:id', handleUpdateProduct);
 
 mainRouter.put('/cart', handleUpdateCart);
 mainRouter.get('/cart/:id', handleGetBuyersCart);
